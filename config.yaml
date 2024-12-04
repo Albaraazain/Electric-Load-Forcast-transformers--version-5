@@ -44,3 +44,14 @@ log_dir: "logs"
 debug_mode: true
 log_batch_interval: 10
 save_checkpoint_interval: 5
+
+visualization:
+  enabled: true
+  figsize: [15, 7]
+  dpi: 300
+  save_epoch_plots: true
+  plot_frequency: 1  # Plot every N epochs
+  samples_per_epoch: 10
+  show_confidence_intervals: true
+  save_individual_samples: true
+  sample_selection: "random"  # or "sequential"
