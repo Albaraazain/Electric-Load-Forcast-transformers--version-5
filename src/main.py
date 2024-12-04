@@ -184,7 +184,10 @@ def main():
     # Initialize model
     model, optimizer, criterion = init_model(config, device)
     
-    # Initialize trainer
+    # Initialize visualizer early
+    visualizer = TimeSeriesVisualizer(figsize=(15, 7))
+    
+    # Initialize trainer with visualizer
     trainer = Trainer(
         model=model,
         train_loader=train_loader,
@@ -192,10 +195,11 @@ def main():
         optimizer=optimizer,
         criterion=criterion,
         config=config,
-        device=device
+        device=device,
+        visualizer=visualizer  # Pass visualizer to trainer
     )
     
-    # Train model
+    # Train model (now includes per-epoch visualization)
     logger.info("Starting training...")
     train_losses, val_losses = trainer.train()
     
@@ -210,21 +214,32 @@ def main():
         logger.info(f"{metric_name}: {value:.4f}")
     
     # Visualize results
-    visualizer = TimeSeriesVisualizer()
-    
+    visualizer = TimeSeriesVisualizer(figsize=(15, 7))
+
+    # Plot overall predictions
+    pred_fig = visualizer.plot_predictions(
+        true_values=targets,
+        predictions=predictions,
+        title="Overall Prediction Performance"
+    )
+    visualizer.save_figure(pred_fig, os.path.join(config['output_dir'], 'predictions.png'))
+
+    # Plot sample predictions from batches
+    batch_fig = visualizer.plot_batch_predictions(
+        true_values=targets[:32],  # Take first batch
+        predictions=predictions[:32],
+        n_samples=5,
+        title="Sample Prediction Cases"
+    )
+    visualizer.save_figure(batch_fig, os.path.join(config['output_dir'], 'sample_predictions.png'))
+
     # Plot training history
-    history_fig = visualizer.plot_training_history(train_losses, val_losses)
-    visualizer.save_figure(
-        history_fig,
-        os.path.join(config['output_dir'], 'training_history.png')
+    history_fig = visualizer.plot_training_history(
+        train_losses=train_losses,
+        val_losses=val_losses
     )
+    visualizer.save_figure(history_fig, os.path.join(config['output_dir'], 'training_history.png'))
     
-    # Plot predictions
-    pred_fig = visualizer.plot_predictions(targets, predictions)
-    visualizer.save_figure(
-        pred_fig,
-        os.path.join(config['output_dir'], 'predictions.png')
-    )
     
     logger.info("Training completed successfully!")
 
