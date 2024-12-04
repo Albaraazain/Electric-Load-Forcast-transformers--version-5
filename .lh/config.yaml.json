@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 9,
+            "activePatchIndex": 11,
             "patches": [
                 {
                     "date": 1733311823071,
@@ -44,6 +44,14 @@
                 {
                     "date": 1733337931494,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n e_layers: 3\r\n d_ff: 512\r\n dropout: 0.2\r\n activation: \"gelu\"\r\n-distil: true\r\n+distil: false\r\n \r\n # Training Configuration\r\n batch_size: 32\r\n learning_rate: 1.0e-4\r\n"
+                },
+                {
+                    "date": 1733346714884,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -42,5 +42,12 @@\n \r\n # Debugging Configuration\r\n debug_mode: true\r\n log_batch_interval: 10\r\n-save_checkpoint_interval: 5\n\\ No newline at end of file\n+save_checkpoint_interval: 5\r\n+\r\n+visualization:\r\n+  enabled: true\r\n+  figsize: [15, 7]\r\n+  dpi: 300\r\n+  save_epoch_plots: true\r\n+  plot_frequency: 1  # Plot every N epochs\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1733347660988,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -49,5 +49,9 @@\n   enabled: true\r\n   figsize: [15, 7]\r\n   dpi: 300\r\n   save_epoch_plots: true\r\n-  plot_frequency: 1  # Plot every N epochs\n\\ No newline at end of file\n+  plot_frequency: 1  # Plot every N epochs\r\n+  samples_per_epoch: 10\r\n+  show_confidence_intervals: true\r\n+  save_individual_samples: true\r\n+  sample_selection: \"random\"  # or \"sequential\"\n\\ No newline at end of file\n"
                 }
             ],
             "date": 1733311823071,

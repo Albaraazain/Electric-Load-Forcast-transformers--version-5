@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 7,
+            "activePatchIndex": 9,
             "patches": [
                 {
                     "date": 1733311800828,
@@ -36,6 +36,14 @@
                 {
                     "date": 1733318504491,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,8 +13,10 @@\n import pandas as pd\r\n from torch.utils.data import DataLoader\r\n from datetime import datetime\r\n from torch.cuda.amp.grad_scaler import GradScaler\r\n+import torch.backends.cuda\r\n+import torch.backends.cudnn\r\n \r\n from data.preprocessing import DataPreprocessor\r\n from data.dataset import InformerDataset, DatasetSplitter\r\n from model.informer import Informer\r\n"
+                },
+                {
+                    "date": 1733345428149,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -209,22 +209,33 @@\n     for metric_name, value in test_metrics.items():\r\n         logger.info(f\"{metric_name}: {value:.4f}\")\r\n     \r\n     # Visualize results\r\n-    visualizer = TimeSeriesVisualizer()\r\n-    \r\n+    visualizer = TimeSeriesVisualizer(figsize=(15, 7))\r\n+\r\n+    # Plot overall predictions\r\n+    pred_fig = visualizer.plot_predictions(\r\n+        true_values=targets,\r\n+        predictions=predictions,\r\n+        title=\"Overall Prediction Performance\"\r\n+    )\r\n+    visualizer.save_figure(pred_fig, os.path.join(config['output_dir'], 'predictions.png'))\r\n+\r\n+    # Plot sample predictions from batches\r\n+    batch_fig = visualizer.plot_batch_predictions(\r\n+        true_values=targets[:32],  # Take first batch\r\n+        predictions=predictions[:32],\r\n+        n_samples=5,\r\n+        title=\"Sample Prediction Cases\"\r\n+    )\r\n+    visualizer.save_figure(batch_fig, os.path.join(config['output_dir'], 'sample_predictions.png'))\r\n+\r\n     # Plot training history\r\n-    history_fig = visualizer.plot_training_history(train_losses, val_losses)\r\n-    visualizer.save_figure(\r\n-        history_fig,\r\n-        os.path.join(config['output_dir'], 'training_history.png')\r\n+    history_fig = visualizer.plot_training_history(\r\n+        train_losses=train_losses,\r\n+        val_losses=val_losses\r\n     )\r\n-    \r\n-    # Plot predictions\r\n-    pred_fig = visualizer.plot_predictions(targets, predictions)\r\n-    visualizer.save_figure(\r\n-        pred_fig,\r\n-        os.path.join(config['output_dir'], 'predictions.png')\r\n+    visualizer.save_figure(history_fig, os.path.join(config['output_dir'], 'training_history.png'))\r\n     )\r\n     \r\n     logger.info(\"Training completed successfully!\")\r\n \r\n"
+                },
+                {
+                    "date": 1733346714897,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -183,20 +183,24 @@\n     \r\n     # Initialize model\r\n     model, optimizer, criterion = init_model(config, device)\r\n     \r\n-    # Initialize trainer\r\n+    # Initialize visualizer early\r\n+    visualizer = TimeSeriesVisualizer(figsize=(15, 7))\r\n+    \r\n+    # Initialize trainer with visualizer\r\n     trainer = Trainer(\r\n         model=model,\r\n         train_loader=train_loader,\r\n         val_loader=val_loader,\r\n         optimizer=optimizer,\r\n         criterion=criterion,\r\n         config=config,\r\n-        device=device\r\n+        device=device,\r\n+        visualizer=visualizer  # Pass visualizer to trainer\r\n     )\r\n     \r\n-    # Train model\r\n+    # Train model (now includes per-epoch visualization)\r\n     logger.info(\"Starting training...\")\r\n     train_losses, val_losses = trainer.train()\r\n     \r\n     # Evaluate model\r\n"
                 }
             ],
             "date": 1733311800828,
