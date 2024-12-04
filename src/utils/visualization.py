@@ -195,23 +195,71 @@ class TimeSeriesVisualizer:
         self,
         true_values: Union[torch.Tensor, np.ndarray],
         predictions: Union[torch.Tensor, np.ndarray],
+        input_values: Optional[Union[torch.Tensor, np.ndarray]] = None,  # Add input_values parameter
         timestamps: Optional[List] = None,
-        title: str = "Predictions vs Actual"
+        title: str = "Predictions vs Actual",
+        show_confidence: bool = True
     ) -> Figure:
-        """Plot predictions against actual values"""
+        """
+        Plot predictions against actual values with input context
+        
+        Args:
+            true_values: Actual future values
+            predictions: Predicted future values
+            input_values: Historical input values used for prediction
+            timestamps: Optional time labels
+            title: Plot title
+            show_confidence: Whether to show confidence intervals
+        """
         # Prepare data for plotting
         true_values = self._prepare_data_for_plotting(true_values)
         predictions = self._prepare_data_for_plotting(predictions)
         
-        # Create x-axis values
-        x_values = timestamps if timestamps is not None else np.arange(len(true_values))
-        
-        # Create figure
-        fig, ax = plt.subplots(figsize=self.figsize)
-        
-        # Plot data
-        ax.plot(x_values, true_values, 'b-', label='Actual', alpha=0.7)
-        ax.plot(x_values, predictions, 'r--', label='Predicted', alpha=0.7)
+        if input_values is not None:
+            input_values = self._prepare_data_for_plotting(input_values)
+            
+            # Calculate error metrics for this sample
+            mse = np.mean((true_values - predictions) ** 2)
+            mae = np.mean(np.abs(true_values - predictions))
+            
+            # Update title with error metrics
+            title = f"{title}\nMSE: {mse:.4f}, MAE: {mae:.4f}"
+            
+            # Create full x-axis range
+            total_len = len(input_values) + len(true_values)
+            x_values = timestamps if timestamps is not None else np.arange(total_len)
+            
+            fig, ax = plt.subplots(figsize=self.figsize)
+            
+            # Plot input sequence
+            ax.plot(x_values[:len(input_values)], input_values, 
+                   'g-', label='Historical Input', alpha=0.5)
+            
+            # Plot predictions and actual values
+            ax.plot(x_values[len(input_values):], true_values, 
+                   'b-', label='Actual', alpha=0.7)
+            ax.plot(x_values[len(input_values):], predictions, 
+                   'r--', label='Predicted', alpha=0.7)
+            
+            # Add vertical line to separate input from predictions
+            ax.axvline(x=x_values[len(input_values)-1], 
+                      color='gray', linestyle='--', alpha=0.5)
+            
+            # Add shaded region for prediction uncertainty
+            if show_confidence:
+                std_dev = np.std(true_values - predictions)
+                upper = predictions + 2 * std_dev
+                lower = predictions - 2 * std_dev
+                ax.fill_between(x_values[len(input_values):], 
+                              lower, upper, 
+                              color='r', alpha=0.1, 
+                              label='95% Confidence')
+        else:
+            # Original plotting code without input sequence
+            x_values = timestamps if timestamps is not None else np.arange(len(true_values))
+            fig, ax = plt.subplots(figsize=self.figsize)
+            ax.plot(x_values, true_values, 'b-', label='Actual', alpha=0.7)
+            ax.plot(x_values, predictions, 'r--', label='Predicted', alpha=0.7)
         
         # Customize plot
         ax.set_title(title)
@@ -220,7 +268,6 @@ class TimeSeriesVisualizer:
         ax.legend()
         ax.grid(True)
         
-        # Rotate x-axis labels if timestamps are provided
         if timestamps is not None:
             plt.xticks(rotation=45)
             
