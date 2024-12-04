@@ -1,0 +1,15 @@
+2024-12-04 15:24:25,631 - __main__ - INFO - CUDA Environment:
+2024-12-04 15:24:25,631 - __main__ - INFO - {'cuda_available': True, 'cuda_version': '11.8', 'gpu_name': 'NVIDIA GeForce RTX 4060 Laptop GPU', 'pytorch_version': '2.0.1', 'python_version': '3.10.15 | packaged by conda-forge | (main, Oct 16 2024, 01:15:49) [MSC v.1941 64 bit (AMD64)]', 'gpu_count': 1, 'current_device': 0, 'memory_allocated': '0.00 GB', 'memory_cached': '0.00 GB'}
+2024-12-04 15:24:25,631 - __main__ - INFO - Loading and preprocessing data...
+2024-12-04 15:24:26,180 - __main__ - INFO - Starting training...
+2024-12-04 15:24:26,196 - training.trainer - INFO - 
+================================================================================
+2024-12-04 15:24:26,196 - training.trainer - INFO - Starting Training
+2024-12-04 15:24:26,196 - training.trainer - INFO - ================================================================================
+2024-12-04 15:24:39,388 - training.trainer - INFO - 
+Batch shapes:
+2024-12-04 15:24:39,388 - training.trainer - INFO - Encoder inputs: torch.Size([32, 48, 8])
+2024-12-04 15:24:39,388 - training.trainer - INFO - Decoder inputs: torch.Size([32, 24, 8])
+2024-12-04 15:24:39,388 - training.trainer - INFO - Targets: torch.Size([32, 24, 1])
+2024-12-04 15:24:40,556 - training.trainer - INFO - Model output shape: torch.Size([32, 12, 1])
+2024-12-04 15:24:40,556 - training.trainer - INFO - Target shape for loss: torch.Size([32, 24, 1])

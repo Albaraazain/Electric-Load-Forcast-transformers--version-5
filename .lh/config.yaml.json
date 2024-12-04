@@ -1,0 +1,54 @@
+{
+    "sourceFile": "config.yaml",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 9,
+            "patches": [
+                {
+                    "date": 1733311823071,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1733312838417,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n data_path: \"data/energy_consumption.csv\"\r\n timestamp_col: \"utc_timestamp\"\r\n target_col: \"energy_consumption\"\r\n input_window: 192  # 2 days of 15-min intervals\r\n-prediction_window: 192  # 2 days ahead prediction\r\n+prediction_window: 193  # 2 days ahead prediction + 1 for shift\r\n stride: 1\r\n \r\n # Data Split\r\n train_ratio: 0.7\r\n@@ -12,9 +12,9 @@\n test_ratio: 0.15\r\n \r\n # Model Configuration\r\n input_dim: 8  # Energy + time features\r\n-output_dim: 1\r\n+output_dim: 1  # Only predicting energy consumption\r\n d_model: 256\r\n n_heads: 8\r\n e_layers: 3\r\n d_ff: 512\r\n@@ -22,9 +22,9 @@\n activation: \"gelu\"\r\n distil: true\r\n \r\n # Training Configuration\r\n-batch_size: 64\r\n+batch_size: 32  # Reduced to handle larger sequences\r\n learning_rate: 1.0e-4\r\n weight_decay: 0.01\r\n max_epochs: 100\r\n patience: 10\r\n@@ -37,5 +37,10 @@\n \r\n # Directories\r\n checkpoint_dir: \"checkpoints\"\r\n output_dir: \"outputs\"\r\n-log_dir: \"logs\"\n\\ No newline at end of file\n+log_dir: \"logs\"\r\n+\r\n+# Debugging Configuration\r\n+debug_mode: true  # Added for enhanced logging\r\n+log_batch_interval: 10  # Log every 10 batches\r\n+save_checkpoint_interval: 5  # Save checkpoint every 5 epochs\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1733314686042,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n data_path: \"data/energy_consumption.csv\"\r\n timestamp_col: \"utc_timestamp\"\r\n target_col: \"energy_consumption\"\r\n input_window: 192  # 2 days of 15-min intervals\r\n-prediction_window: 193  # 2 days ahead prediction + 1 for shift\r\n+prediction_window: 48  # 2 days ahead prediction + 1 for shift\r\n stride: 1\r\n \r\n # Data Split\r\n train_ratio: 0.7\r\n"
+                },
+                {
+                    "date": 1733314951609,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n data_path: \"data/energy_consumption.csv\"\r\n timestamp_col: \"utc_timestamp\"\r\n target_col: \"energy_consumption\"\r\n input_window: 192  # 2 days of 15-min intervals\r\n-prediction_window: 48  # 2 days ahead prediction + 1 for shift\r\n+prediction_window: 49 \r\n stride: 1\r\n \r\n # Data Split\r\n train_ratio: 0.7\r\n"
+                },
+                {
+                    "date": 1733315191821,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n data_path: \"data/energy_consumption.csv\"\r\n timestamp_col: \"utc_timestamp\"\r\n target_col: \"energy_consumption\"\r\n input_window: 192  # 2 days of 15-min intervals\r\n-prediction_window: 49 \r\n+prediction_window: 48  # 2 days ahead prediction + 1 for shift\r\n stride: 1\r\n \r\n # Data Split\r\n train_ratio: 0.7\r\n"
+                },
+                {
+                    "date": 1733315426433,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n data_path: \"data/energy_consumption.csv\"\r\n timestamp_col: \"utc_timestamp\"\r\n target_col: \"energy_consumption\"\r\n input_window: 192  # 2 days of 15-min intervals\r\n-prediction_window: 48  # 2 days ahead prediction + 1 for shift\r\n+prediction_window: 50  # 2 days ahead prediction + 1 for shift\r\n stride: 1\r\n \r\n # Data Split\r\n train_ratio: 0.7\r\n"
+                },
+                {
+                    "date": 1733316796181,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n data_path: \"data/energy_consumption.csv\"\r\n timestamp_col: \"utc_timestamp\"\r\n target_col: \"energy_consumption\"\r\n input_window: 192  # 2 days of 15-min intervals\r\n-prediction_window: 50  # 2 days ahead prediction + 1 for shift\r\n+prediction_window: 50\r\n stride: 1\r\n \r\n # Data Split\r\n train_ratio: 0.7\r\n@@ -22,9 +22,9 @@\n activation: \"gelu\"\r\n distil: true\r\n \r\n # Training Configuration\r\n-batch_size: 32  # Reduced to handle larger sequences\r\n+batch_size: 16  # Reduced to handle larger sequences\r\n learning_rate: 1.0e-4\r\n weight_decay: 0.01\r\n max_epochs: 100\r\n patience: 10\r\n"
+                },
+                {
+                    "date": 1733318469048,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,46 @@\n+# Data Configuration\r\n+data_path: \"data/energy_consumption.csv\"\r\n+timestamp_col: \"utc_timestamp\"\r\n+target_col: \"energy_consumption\"\r\n+input_window: 48  # 2 days of hourly data (24*2)\r\n+prediction_window: 26  # Predict next 24 hours (26-2=24)\r\n+stride: 1\r\n+\r\n+# Data Split\r\n+train_ratio: 0.7\r\n+val_ratio: 0.15\r\n+test_ratio: 0.15\r\n+\r\n+# Model Configuration\r\n+input_dim: 8  # Energy + time features\r\n+output_dim: 1  # Only predicting energy consumption\r\n+d_model: 256\r\n+n_heads: 8\r\n+e_layers: 3\r\n+d_ff: 512\r\n+dropout: 0.2\r\n+activation: \"gelu\"\r\n+distil: true\r\n+\r\n+# Training Configuration\r\n+batch_size: 32  # Increased as we have fewer time steps per sequence\r\n+learning_rate: 1.0e-4\r\n+weight_decay: 0.01\r\n+max_epochs: 100\r\n+patience: 10\r\n+warmup_epochs: 3\r\n+grad_clip_value: 1.0\r\n+num_workers: 4\r\n+\r\n+# Hardware Configuration\r\n+use_cuda: true\r\n+\r\n+# Directories\r\n+checkpoint_dir: \"checkpoints\"\r\n+output_dir: \"outputs\"\r\n+log_dir: \"logs\"\r\n+\r\n+# Debugging Configuration\r\n+debug_mode: true\r\n+log_batch_interval: 10\r\n+save_checkpoint_interval: 5\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1733318656409,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,12 +2,12 @@\n data_path: \"data/energy_consumption.csv\"\r\n timestamp_col: \"utc_timestamp\"\r\n target_col: \"energy_consumption\"\r\n input_window: 48  # 2 days of hourly data (24*2)\r\n-prediction_window: 26  # Predict next 24 hours (26-2=24)\r\n+prediction_window: 25  # Predict next 24 hours (25-1=24)\r\n stride: 1\r\n \r\n-# Data Split\r\n+# Rest of the configuration remains the same\r\n train_ratio: 0.7\r\n val_ratio: 0.15\r\n test_ratio: 0.15\r\n \r\n@@ -22,9 +22,9 @@\n activation: \"gelu\"\r\n distil: true\r\n \r\n # Training Configuration\r\n-batch_size: 32  # Increased as we have fewer time steps per sequence\r\n+batch_size: 32\r\n learning_rate: 1.0e-4\r\n weight_decay: 0.01\r\n max_epochs: 100\r\n patience: 10\r\n@@ -42,51 +42,5 @@\n \r\n # Debugging Configuration\r\n debug_mode: true\r\n log_batch_interval: 10\r\n-save_checkpoint_interval: 5\n-# Data Configuration\r\n-data_path: \"data/energy_consumption.csv\"\r\n-timestamp_col: \"utc_timestamp\"\r\n-target_col: \"energy_consumption\"\r\n-input_window: 192  # 2 days of 15-min intervals\r\n-prediction_window: 50\r\n-stride: 1\r\n-\r\n-# Data Split\r\n-train_ratio: 0.7\r\n-val_ratio: 0.15\r\n-test_ratio: 0.15\r\n-\r\n-# Model Configuration\r\n-input_dim: 8  # Energy + time features\r\n-output_dim: 1  # Only predicting energy consumption\r\n-d_model: 256\r\n-n_heads: 8\r\n-e_layers: 3\r\n-d_ff: 512\r\n-dropout: 0.2\r\n-activation: \"gelu\"\r\n-distil: true\r\n-\r\n-# Training Configuration\r\n-batch_size: 16  # Reduced to handle larger sequences\r\n-learning_rate: 1.0e-4\r\n-weight_decay: 0.01\r\n-max_epochs: 100\r\n-patience: 10\r\n-warmup_epochs: 3\r\n-grad_clip_value: 1.0\r\n-num_workers: 4\r\n-\r\n-# Hardware Configuration\r\n-use_cuda: true\r\n-\r\n-# Directories\r\n-checkpoint_dir: \"checkpoints\"\r\n-output_dir: \"outputs\"\r\n-log_dir: \"logs\"\r\n-\r\n-# Debugging Configuration\r\n-debug_mode: true  # Added for enhanced logging\r\n-log_batch_interval: 10  # Log every 10 batches\r\n-save_checkpoint_interval: 5  # Save checkpoint every 5 epochs\n\\ No newline at end of file\n+save_checkpoint_interval: 5\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1733337931494,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n e_layers: 3\r\n d_ff: 512\r\n dropout: 0.2\r\n activation: \"gelu\"\r\n-distil: true\r\n+distil: false\r\n \r\n # Training Configuration\r\n batch_size: 32\r\n learning_rate: 1.0e-4\r\n"
+                }
+            ],
+            "date": 1733311823071,
+            "name": "Commit-0",
+            "content": "# Data Configuration\r\ndata_path: \"data/energy_consumption.csv\"\r\ntimestamp_col: \"utc_timestamp\"\r\ntarget_col: \"energy_consumption\"\r\ninput_window: 192  # 2 days of 15-min intervals\r\nprediction_window: 192  # 2 days ahead prediction\r\nstride: 1\r\n\r\n# Data Split\r\ntrain_ratio: 0.7\r\nval_ratio: 0.15\r\ntest_ratio: 0.15\r\n\r\n# Model Configuration\r\ninput_dim: 8  # Energy + time features\r\noutput_dim: 1\r\nd_model: 256\r\nn_heads: 8\r\ne_layers: 3\r\nd_ff: 512\r\ndropout: 0.2\r\nactivation: \"gelu\"\r\ndistil: true\r\n\r\n# Training Configuration\r\nbatch_size: 64\r\nlearning_rate: 1.0e-4\r\nweight_decay: 0.01\r\nmax_epochs: 100\r\npatience: 10\r\nwarmup_epochs: 3\r\ngrad_clip_value: 1.0\r\nnum_workers: 4\r\n\r\n# Hardware Configuration\r\nuse_cuda: true\r\n\r\n# Directories\r\ncheckpoint_dir: \"checkpoints\"\r\noutput_dir: \"outputs\"\r\nlog_dir: \"logs\""
+        }
+    ]
+}

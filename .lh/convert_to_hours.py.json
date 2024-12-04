@@ -1,0 +1,22 @@
+{
+    "sourceFile": "convert_to_hours.py",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1733318141480,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1733318242373,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,10 +6,10 @@\n     \r\n     # Set timestamp as index\r\n     df.set_index('utc_timestamp', inplace=True)\r\n     \r\n-    # Resample to hourly frequency and calculate mean\r\n-    hourly_df = df.resample('H').mean()\r\n+    # Resample to hourly frequency and calculate sum (not mean)\r\n+    hourly_df = df.resample('H').sum()\r\n     \r\n     # Reset index to make timestamp a column again\r\n     hourly_df.reset_index(inplace=True)\r\n     \r\n@@ -17,8 +17,9 @@\n     hourly_df.to_csv(output_file, index=False)\r\n     \r\n     return hourly_df\r\n \r\n+\r\n # Usage\r\n if __name__ == \"__main__\":\r\n     input_file = \"data/energy_consumption.csv\"\r\n     output_file = \"hourly_data.csv\"\r\n"
+                }
+            ],
+            "date": 1733318141480,
+            "name": "Commit-0",
+            "content": "import pandas as pd\r\n\r\ndef convert_to_hourly(input_file, output_file):\r\n    # Read the CSV file\r\n    df = pd.read_csv(input_file, parse_dates=['utc_timestamp'])\r\n    \r\n    # Set timestamp as index\r\n    df.set_index('utc_timestamp', inplace=True)\r\n    \r\n    # Resample to hourly frequency and calculate mean\r\n    hourly_df = df.resample('H').mean()\r\n    \r\n    # Reset index to make timestamp a column again\r\n    hourly_df.reset_index(inplace=True)\r\n    \r\n    # Save to new CSV file\r\n    hourly_df.to_csv(output_file, index=False)\r\n    \r\n    return hourly_df\r\n\r\n# Usage\r\nif __name__ == \"__main__\":\r\n    input_file = \"data/energy_consumption.csv\"\r\n    output_file = \"hourly_data.csv\"\r\n    hourly_data = convert_to_hourly(input_file, output_file)\r\n    print(\"First few rows of converted data:\")\r\n    print(hourly_data.head())"
+        }
+    ]
+}

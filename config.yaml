@@ -1,0 +1,46 @@
+# Data Configuration
+data_path: "data/energy_consumption.csv"
+timestamp_col: "utc_timestamp"
+target_col: "energy_consumption"
+input_window: 48  # 2 days of hourly data (24*2)
+prediction_window: 25  # Predict next 24 hours (25-1=24)
+stride: 1
+
+# Rest of the configuration remains the same
+train_ratio: 0.7
+val_ratio: 0.15
+test_ratio: 0.15
+
+# Model Configuration
+input_dim: 8  # Energy + time features
+output_dim: 1  # Only predicting energy consumption
+d_model: 256
+n_heads: 8
+e_layers: 3
+d_ff: 512
+dropout: 0.2
+activation: "gelu"
+distil: false
+
+# Training Configuration
+batch_size: 32
+learning_rate: 1.0e-4
+weight_decay: 0.01
+max_epochs: 100
+patience: 10
+warmup_epochs: 3
+grad_clip_value: 1.0
+num_workers: 4
+
+# Hardware Configuration
+use_cuda: true
+
+# Directories
+checkpoint_dir: "checkpoints"
+output_dir: "outputs"
+log_dir: "logs"
+
+# Debugging Configuration
+debug_mode: true
+log_batch_interval: 10
+save_checkpoint_interval: 5

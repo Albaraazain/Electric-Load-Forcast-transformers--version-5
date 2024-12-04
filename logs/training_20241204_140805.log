@@ -1,0 +1,42 @@
+2024-12-04 14:08:07,590 - __main__ - INFO - CUDA Environment:
+2024-12-04 14:08:07,590 - __main__ - INFO - {'cuda_available': True, 'cuda_version': '11.8', 'gpu_name': 'NVIDIA GeForce RTX 4060 Laptop GPU', 'pytorch_version': '2.0.1', 'python_version': '3.10.15 | packaged by conda-forge | (main, Oct 16 2024, 01:15:49) [MSC v.1941 64 bit (AMD64)]', 'gpu_count': 1, 'current_device': 0, 'memory_allocated': '0.00 GB', 'memory_cached': '0.00 GB'}
+2024-12-04 14:08:07,604 - __main__ - INFO - Loading and preprocessing data...
+2024-12-04 14:08:09,106 - __main__ - INFO - Starting training...
+2024-12-04 14:08:09,106 - training.trainer - INFO - Starting training...
+2024-12-04 14:08:33,477 - training.trainer - WARNING - Dimension mismatch - outputs: torch.Size([32, 48, 1]), targets: torch.Size([32, 192, 1])
+2024-12-04 14:08:34,366 - training.trainer - INFO - Detailed batch 0 info:
+2024-12-04 14:08:34,382 - training.trainer - INFO - Input sequence length: 192
+2024-12-04 14:08:34,382 - training.trainer - INFO - Output sequence length: 48
+2024-12-04 14:08:34,382 - training.trainer - INFO - Target sequence length: 48
+2024-12-04 14:08:34,454 - training.trainer - WARNING - Dimension mismatch - outputs: torch.Size([32, 48, 1]), targets: torch.Size([32, 192, 1])
+2024-12-04 14:08:34,535 - training.trainer - INFO - Detailed batch 1 info:
+2024-12-04 14:08:34,535 - training.trainer - INFO - Input sequence length: 192
+2024-12-04 14:08:34,535 - training.trainer - INFO - Output sequence length: 48
+2024-12-04 14:08:34,535 - training.trainer - INFO - Target sequence length: 48
+2024-12-04 14:08:34,617 - training.trainer - WARNING - Dimension mismatch - outputs: torch.Size([32, 48, 1]), targets: torch.Size([32, 192, 1])
+2024-12-04 14:08:34,694 - training.trainer - INFO - Detailed batch 2 info:
+2024-12-04 14:08:34,694 - training.trainer - INFO - Input sequence length: 192
+2024-12-04 14:08:34,694 - training.trainer - INFO - Output sequence length: 48
+2024-12-04 14:08:34,694 - training.trainer - INFO - Target sequence length: 48
+2024-12-04 14:08:34,762 - training.trainer - WARNING - Dimension mismatch - outputs: torch.Size([32, 48, 1]), targets: torch.Size([32, 192, 1])
+2024-12-04 14:08:34,821 - training.trainer - WARNING - Dimension mismatch - outputs: torch.Size([32, 48, 1]), targets: torch.Size([32, 192, 1])
+2024-12-04 14:08:34,880 - training.trainer - WARNING - Dimension mismatch - outputs: torch.Size([32, 48, 1]), targets: torch.Size([32, 192, 1])
+2024-12-04 14:08:34,938 - training.trainer - WARNING - Dimension mismatch - outputs: torch.Size([32, 48, 1]), targets: torch.Size([32, 192, 1])
+2024-12-04 14:08:34,990 - training.trainer - WARNING - Dimension mismatch - outputs: torch.Size([32, 48, 1]), targets: torch.Size([32, 192, 1])
+2024-12-04 14:08:35,040 - training.trainer - WARNING - Dimension mismatch - outputs: torch.Size([32, 48, 1]), targets: torch.Size([32, 192, 1])
+2024-12-04 14:08:35,073 - training.trainer - WARNING - Dimension mismatch - outputs: torch.Size([32, 48, 1]), targets: torch.Size([32, 192, 1])
+2024-12-04 14:08:35,122 - training.trainer - WARNING - Dimension mismatch - outputs: torch.Size([32, 48, 1]), targets: torch.Size([32, 192, 1])
+2024-12-04 14:08:35,177 - training.trainer - WARNING - Dimension mismatch - outputs: torch.Size([32, 48, 1]), targets: torch.Size([32, 192, 1])
+2024-12-04 14:08:35,240 - training.trainer - WARNING - Dimension mismatch - outputs: torch.Size([32, 48, 1]), targets: torch.Size([32, 192, 1])
+2024-12-04 14:08:35,408 - training.trainer - WARNING - Dimension mismatch - outputs: torch.Size([32, 48, 1]), targets: torch.Size([32, 192, 1])
+2024-12-04 14:08:35,713 - training.trainer - WARNING - Dimension mismatch - outputs: torch.Size([32, 48, 1]), targets: torch.Size([32, 192, 1])
+2024-12-04 14:08:36,014 - training.trainer - WARNING - Dimension mismatch - outputs: torch.Size([32, 48, 1]), targets: torch.Size([32, 192, 1])
+2024-12-04 14:08:36,341 - training.trainer - WARNING - Dimension mismatch - outputs: torch.Size([32, 48, 1]), targets: torch.Size([32, 192, 1])
+2024-12-04 14:08:36,630 - training.trainer - WARNING - Dimension mismatch - outputs: torch.Size([32, 48, 1]), targets: torch.Size([32, 192, 1])
+2024-12-04 14:08:36,867 - training.trainer - WARNING - Dimension mismatch - outputs: torch.Size([32, 48, 1]), targets: torch.Size([32, 192, 1])
+2024-12-04 14:08:37,111 - training.trainer - WARNING - Dimension mismatch - outputs: torch.Size([32, 48, 1]), targets: torch.Size([32, 192, 1])
+2024-12-04 14:08:37,367 - training.trainer - WARNING - Dimension mismatch - outputs: torch.Size([32, 48, 1]), targets: torch.Size([32, 192, 1])
+2024-12-04 14:08:37,601 - training.trainer - WARNING - Dimension mismatch - outputs: torch.Size([32, 48, 1]), targets: torch.Size([32, 192, 1])
+2024-12-04 14:08:37,880 - training.trainer - WARNING - Dimension mismatch - outputs: torch.Size([32, 48, 1]), targets: torch.Size([32, 192, 1])
+2024-12-04 14:08:38,107 - training.trainer - WARNING - Dimension mismatch - outputs: torch.Size([32, 48, 1]), targets: torch.Size([32, 192, 1])
+2024-12-04 14:08:38,476 - training.trainer - WARNING - Dimension mismatch - outputs: torch.Size([32, 48, 1]), targets: torch.Size([32, 192, 1])

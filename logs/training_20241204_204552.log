@@ -1,0 +1,27 @@
+2024-12-04 20:45:52,624 - __main__ - INFO - CUDA Environment:
+2024-12-04 20:45:52,624 - __main__ - INFO - {'cuda_available': True, 'cuda_version': '11.8', 'gpu_name': 'NVIDIA GeForce RTX 4060 Laptop GPU', 'pytorch_version': '2.0.1', 'python_version': '3.10.15 | packaged by conda-forge | (main, Oct 16 2024, 01:15:49) [MSC v.1941 64 bit (AMD64)]', 'gpu_count': 1, 'current_device': 0, 'memory_allocated': '0.00 GB', 'memory_cached': '0.00 GB'}
+2024-12-04 20:45:52,624 - __main__ - INFO - Loading and preprocessing data...
+2024-12-04 20:45:53,275 - __main__ - INFO - Starting training...
+2024-12-04 20:45:53,275 - training.trainer - INFO - 
+================================================================================
+2024-12-04 20:45:53,280 - training.trainer - INFO - Starting Training
+2024-12-04 20:45:53,280 - training.trainer - INFO - ================================================================================
+2024-12-04 20:46:04,248 - training.trainer - INFO - 
+Batch shapes:
+2024-12-04 20:46:04,248 - training.trainer - INFO - Encoder inputs: torch.Size([32, 48, 8])
+2024-12-04 20:46:04,248 - training.trainer - INFO - Decoder inputs: torch.Size([32, 24, 8])
+2024-12-04 20:46:04,248 - training.trainer - INFO - Targets: torch.Size([32, 24, 1])
+2024-12-04 20:46:05,106 - training.trainer - INFO - Model output shape: torch.Size([32, 24, 1])
+2024-12-04 20:46:05,106 - training.trainer - INFO - Target shape for loss: torch.Size([32, 24, 1])
+2024-12-04 20:46:06,884 - training.trainer - INFO - 
+============================== Batch 50/1050 ==============================
+Average Loss: 1.4106 | Learning Rate: 0.000002
+================================================================================
+2024-12-04 20:46:07,843 - training.trainer - INFO - 
+============================== Batch 100/1050 ==============================
+Average Loss: 1.2461 | Learning Rate: 0.000003
+================================================================================
+2024-12-04 20:46:08,961 - training.trainer - INFO - 
+============================== Batch 150/1050 ==============================
+Average Loss: 1.1113 | Learning Rate: 0.000005
+================================================================================

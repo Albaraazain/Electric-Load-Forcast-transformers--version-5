@@ -1,0 +1,22 @@
+{
+    "sourceFile": "test_metrics.py",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1733343694576,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1733343752847,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,9 @@\n import torch\r\n import numpy as np\r\n-from utils.metrics import TimeSeriesMetrics\r\n \r\n+from src.utils.metrics import TimeSeriesMetrics\r\n+\r\n def test_metrics():\r\n     \"\"\"Test TimeSeriesMetrics with various input scenarios\"\"\"\r\n     \r\n     # Create sample data that matches our model's output format\r\n"
+                }
+            ],
+            "date": 1733343694576,
+            "name": "Commit-0",
+            "content": "import torch\r\nimport numpy as np\r\nfrom utils.metrics import TimeSeriesMetrics\r\n\r\ndef test_metrics():\r\n    \"\"\"Test TimeSeriesMetrics with various input scenarios\"\"\"\r\n    \r\n    # Create sample data that matches our model's output format\r\n    batch_size = 16\r\n    seq_length = 24\r\n    n_features = 1\r\n    \r\n    # Create dummy predictions and targets with the same shape as our model\r\n    y_true = torch.randn(batch_size, seq_length, n_features)\r\n    y_pred = torch.randn(batch_size, seq_length, n_features)\r\n    \r\n    print(\"\\nTest 1: Basic tensor shapes\")\r\n    print(f\"Input shapes - True: {y_true.shape}, Pred: {y_pred.shape}\")\r\n    \r\n    try:\r\n        metrics = TimeSeriesMetrics.evaluate_all(y_true, y_pred)\r\n        print(\"\\nMetrics calculated successfully:\")\r\n        for metric_name, value in metrics.items():\r\n            print(f\"{metric_name}: {value:.4f}\")\r\n    except Exception as e:\r\n        print(f\"Error in basic test: {str(e)}\")\r\n    \r\n    # Test with known values\r\n    print(\"\\nTest 2: Known values\")\r\n    y_true_known = torch.tensor([[[1.0], [2.0], [3.0]], \r\n                               [[4.0], [5.0], [6.0]]])  # shape: [2, 3, 1]\r\n    y_pred_known = torch.tensor([[[1.1], [2.2], [3.3]], \r\n                               [[3.9], [4.8], [5.7]]])  # shape: [2, 3, 1]\r\n    \r\n    try:\r\n        metrics_known = TimeSeriesMetrics.evaluate_all(y_true_known, y_pred_known)\r\n        print(\"\\nMetrics with known values:\")\r\n        for metric_name, value in metrics_known.items():\r\n            print(f\"{metric_name}: {value:.4f}\")\r\n    except Exception as e:\r\n        print(f\"Error in known values test: {str(e)}\")\r\n    \r\n    # Test with zero values (for MAPE handling)\r\n    print(\"\\nTest 3: Handling zero values\")\r\n    y_true_zeros = torch.tensor([[[0.0], [2.0], [0.0]], \r\n                                [[4.0], [0.0], [6.0]]])\r\n    y_pred_zeros = torch.tensor([[[0.1], [2.2], [0.3]], \r\n                                [[3.9], [0.1], [5.7]]])\r\n    \r\n    try:\r\n        metrics_zeros = TimeSeriesMetrics.evaluate_all(y_true_zeros, y_pred_zeros)\r\n        print(\"\\nMetrics with zero values:\")\r\n        for metric_name, value in metrics_zeros.items():\r\n            print(f\"{metric_name}: {value:.4f}\")\r\n    except Exception as e:\r\n        print(f\"Error in zero values test: {str(e)}\")\r\n    \r\n    # Test with model-like output shapes\r\n    print(\"\\nTest 4: Model-like output\")\r\n    model_true = torch.randn(32, 24, 1)  # Batch:32, Seq:24, Features:1\r\n    model_pred = torch.randn(32, 24, 1)\r\n    \r\n    try:\r\n        metrics_model = TimeSeriesMetrics.evaluate_all(model_true, model_pred)\r\n        print(\"\\nMetrics with model-like shapes:\")\r\n        for metric_name, value in metrics_model.items():\r\n            print(f\"{metric_name}: {value:.4f}\")\r\n    except Exception as e:\r\n        print(f\"Error in model-like test: {str(e)}\")\r\n\r\nif __name__ == \"__main__\":\r\n    print(\"Starting TimeSeriesMetrics tests...\")\r\n    test_metrics()\r\n    print(\"\\nTests completed!\")"
+        }
+    ]
+}
